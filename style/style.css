@@ -4,20 +4,18 @@ body {
     justify-content: center;
     height: 100vh;
     margin: 0;
-    background-color: #f4f4f4;
+    background-color: #000; /* Black background for the entire page */
 }
 
-.numpad-container {
+.calculator-container {
     border: 2px solid #ccc;
     border-radius: 10px;
     overflow: hidden;
+    background-color: #000; /* Black background for the numpad container */
 }
 
 #numpad {
-    background-color: #fff;
-    border-radius: 8px;
-    overflow: hidden;
-    width: 300px;
+    background-color: #000; /* Black background for the numpad */
 }
 
 #display {
@@ -26,6 +24,7 @@ body {
     text-align: right;
     font-size: 1.5em;
     border-bottom: 2px solid #ccc;
+    color: #000; /* Text color in the display area */
 }
 
 .keypad {
@@ -35,8 +34,8 @@ body {
 
 .key {
     border: none;
-    background-color: #e0e0e0;
-    color: #333;
+    background-color: #ff8c00; /* Orange background for number buttons */
+    color: #fff; /* White text color for number buttons */
     font-size: 1.2em;
     padding: 15px;
     cursor: pointer;
@@ -44,12 +43,12 @@ body {
 }
 
 .key:hover {
-    background-color: #ccc;
+    background-color: #ff9f33; /* Darker orange on hover */
 }
 
 .operation {
-    background-color: #ff8c00; /* Orange */
-    color: #fff;
+    background-color: #ff8c00; /* Orange background for operation buttons */
+    color: #fff; /* White text color for operation buttons */
 }
 
 .operation:hover {
