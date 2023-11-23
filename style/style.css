@@ -1,0 +1,67 @@
+//numPad
+body {
+    display: flex;
+    align-items: flex-start; /* Align items at the top */
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f4f4f4;
+}
+/* Adjust the width of the page container as needed */
+.page-container {
+    display: flex;
+    width: 80%; 
+}
+/* Adjust the width of the text input as needed */
+.text-input {
+    width: 60%; 
+    padding: 20px;
+}
+
+.calculator-container {
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+#calculator {
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 300px;
+}
+
+#display {
+    background-color: #eee;
+    padding: 10px;
+    text-align: right;
+    font-size: 1.5em;
+}
+
+.keypad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.key {
+    border: none;
+    background-color: #e0e0e0;
+    color: #333;
+    font-size: 1.2em;
+    padding: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.key:hover {
+    background-color: #ccc;
+}
+
+.operation {
+    background-color: #ff8c00; /* Orange */
+    color: #fff;
+}
+
+.operation:hover {
+    background-color: #ff9f33; /* Darker orange on hover */
+}
