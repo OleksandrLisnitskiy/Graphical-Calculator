@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style/style.css">
     <title>Numpad</title>
 </head>
 <body>
@@ -21,15 +21,15 @@
                 <button class="key" onclick="appendToDisplay('8')">8</button>
                 <button class="key" onclick="appendToDisplay('9')">9</button>
                 <button class="key" onclick="appendToDisplay('0')">0</button>
-                <button class="key operation" onclick="appendToDisplay('*')">*</button>
-                <button class="key operation" onclick="appendToDisplay('/')">/</button>
-                <button class="key operation" onclick="appendToDisplay('+')">+</button>
-                <button class="key operation" onclick="appendToDisplay('-')">-</button>
-                <button class="key" onclick="clearDisplay()">C</button>
-                <button class="key" onclick="evaluate()">=</button>
+                <button class="key" onclick="appendToDisplay('*')">*</button>
+                <button class="key" onclick="appendToDisplay('/')">/</button>
+                <button class="key" onclick="appendToDisplay('+')">+</button>
+                <button class="key" onclick="appendToDisplay('-')">-</button>
+                <button class="key operation" onclick="clearDisplay()">C</button>
+                <button class="key operation" onclick="evalInput()">=</button>
             </div>
         </div>
     </div>
-    <script src="script.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
