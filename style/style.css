@@ -1,10 +1,11 @@
 body {
     display: flex;
-    align-items: center;
+    /*align-items: center;*/
+
     justify-content: center;
     height: 100vh;
-    margin: 0;
-    background-color: #000; /* Black background for the entire page */
+    margin: 150px;
+    background-color: #000000; /* Black background for the entire page */
 }
 
 #numpad {
@@ -12,15 +13,16 @@ body {
 }
 
 #display {
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
+    font-style: italic;
+    border-radius: 5px;
+    margin-bottom: 15px;
     height: 30px;
-    width: 300px;
+    width: 600px;
     overflow-x: auto;
     overflow-y: hidden;
     background-color: #eee;
-    padding: 10px;
     text-align: right;
+    padding: 5px;
     font-size: 1.5em;
     border-bottom: 2px solid #ccc;
     color: #000; /* Text color in the display area */
@@ -39,7 +41,33 @@ body {
     background-color: #eee; /* Set the color of the track */
     border-radius: 6px; /* Set the border radius of the track */
 }
+
+.text{
+
+    color: white;
+    font-family: Arial, serif;
+}
+#graph_func{
+    padding: 5px;
+    border-radius: 5px;
+    width: 620px;
+    overflow-y: hidden;
+    overflow-x: auto;
+    margin-top: 10px;
+}
+
+.func{
+    background-repeat: no-repeat;
+    border-radius: 3px;
+    height: 40px;
+    width: 80px;
+    margin-bottom: 10px;
+    margin-right: 2px;
+}
 .keypad {
+
+    width: 300px;
+    margin-top: 5px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
 }
@@ -63,5 +91,14 @@ body {
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
 }
+
+.operation1{
+    border-top-right-radius: 5px;
+}
+
+.operation2 {
+    border-top-left-radius: 5px;
+}
+
 
 
