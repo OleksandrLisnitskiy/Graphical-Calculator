@@ -1,11 +1,8 @@
-let display = document.getElementById('display');
+let inputField = document.getElementById('display');
 function appendToDisplay(value) {
     display.value += value;
 }
 
-function clearDisplay() {
-    display.value = '';
-}
 
 // function evalInput() {
 //     try {
@@ -15,35 +12,41 @@ function clearDisplay() {
 //     }
 // }
 
-document.addEventListener('keydown', function(event) {
-    // Check if the focus is not on an input field (to avoid interference)
-    if (document.activeElement.tagName !== 'INPUT') {
-        // Get the pressed key code
-        const keyCode = event.key;
-
-        if(keyCode == "Backspace"){
-            display.value = display.value.slice(0, display.textContent.length-1);
-        }
-        else if(keyCode == "Escape"){
-            clearDisplay();
-        }
-    }
-});
+// document.addEventListener('keydown', function(event) {
+//     // Check if the focus is not on an input field (to avoid interference)
+//     if (document.activeElement.tagName !== 'INPUT') {
+//         // Get the pressed key code
+//         const keyCode = event.key;
+//
+//         if(keyCode === "Escape"){
+//             inputField.value = "";
+//         }
+//     }
+// });
 
 document.addEventListener('DOMContentLoaded', function () {
-    let inputField = document.getElementById('display');
     let funcButtons = document.querySelectorAll('.func');
-
+    inputField.focus();
     // Function to handle the input and allow only integers
     function handleInput() {
         var inputValue = inputField.value;
 
         // Remove non-numeric characters except for the minus sign at the beginning
-        var sanitizedValue = inputValue.replace(/[^-0-9]/g, '');
+        var sanitizedValue = inputValue.replace(/[^-0-9xy=+*/()]/g, '');
 
         // Update the input field value
         inputField.value = sanitizedValue;
     }
+
+    inputField.addEventListener('keydown', function(event) {
+        // Check if the focus is not on an input field (to avoid interference)
+
+            // Get the pressed key code
+            if (event.key === "Escape" || event.keyCode === 27) {
+                inputField.value = '';
+            }
+
+    });
 
     // Add event listener to the input field
     inputField.addEventListener('input', handleInput);
@@ -65,6 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
         button.addEventListener('click', function () {
             // You can customize the character based on your needs
             insertCharacterNextToCursor(button.textContent);
+            inputField.focus();
         });
     });
 });

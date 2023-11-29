@@ -4,14 +4,59 @@ body {
 
     justify-content: center;
     height: 100vh;
-    margin: 150px;
+    margin: 100px;
     background-color: #000000; /* Black background for the entire page */
 }
-
+.logo{
+    margin-bottom: 80px;
+    margin-left: 100px;
+}
 #numpad {
     background-color: #000; /* Black background for the numpad */
 }
+.input-container {
+    position: relative;
+    display: inline-block;
+}
 
+#Calculate {
+    background-color: darkorange;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 1.5em;
+    border-radius: 5px;
+    height: 25px;
+    width: 25px;
+    position: absolute;
+    top: 50%; /* Center the button vertically */
+    right: 5px; /* Adjust the right distance from the input field */
+    transform: translateY(-75%) translateX(-20%); /* Center the button vertically */
+}
+
+#Calculate:hover{
+    background-color: #ff9f33; /* Darker orange on hover */
+}
+
+#explanationBox {
+    display: none; /* Initially hide the explanation box */
+    position: absolute;
+    top: 3px;
+    left: 101%;
+    font-size: 0.8em;
+    padding: 5px;
+    color: white;
+    background-color: #727272;
+    /*border: 1px solid #ccc;*/
+    border-radius: 5px;
+}
+
+/* Show the explanation box when the button is hovered */
+#Calculate:hover + #explanationBox {
+    display: block;
+
+}
 #display {
     font-style: italic;
     border-radius: 5px;
@@ -21,9 +66,9 @@ body {
     overflow-x: auto;
     overflow-y: hidden;
     background-color: #eee;
-    text-align: right;
+    text-align: left;
     padding: 5px;
-    font-size: 1.5em;
+    font-size: 1.2em;
     border-bottom: 2px solid #ccc;
     color: #000; /* Text color in the display area */
 }
