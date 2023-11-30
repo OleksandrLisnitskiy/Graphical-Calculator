@@ -12,10 +12,7 @@ body {
     margin-left: 100px;
 }
 
-.numpad-container{
-    transform: translateX(-40%) translateY(-5%);
 
-}
 #numpad {
     background-color: #000; /* Black background for the numpad */
 }

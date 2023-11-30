@@ -4,25 +4,7 @@ function appendToDisplay(value) {
 }
 
 
-// function evalInput() {
-//     try {
-//         display.textContent = eval(display.textContent);
-//     } catch (error) {
-//         display.textContent = 'Error';
-//     }
-// }
 
-// document.addEventListener('keydown', function(event) {
-//     // Check if the focus is not on an input field (to avoid interference)
-//     if (document.activeElement.tagName !== 'INPUT') {
-//         // Get the pressed key code
-//         const keyCode = event.key;
-//
-//         if(keyCode === "Escape"){
-//             inputField.value = "";
-//         }
-//     }
-// });
 
 document.addEventListener('DOMContentLoaded', function () {
     let funcButtons = document.querySelectorAll('.func');
@@ -60,14 +42,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Update the input field value and set the cursor position
         inputField.value = newValue;
-        inputField.setSelectionRange(cursorPosition + 1, cursorPosition + 1);
+        inputField.setSelectionRange(cursorPosition + 1, cursorPosition);
+
     }
 
     // Add event listener to all buttons with class "func"
     funcButtons.forEach(function (button) {
         button.addEventListener('click', function () {
             // You can customize the character based on your needs
-            insertCharacterNextToCursor(button.textContent);
+            insertCharacterNextToCursor(button.getAttribute("name"));
             inputField.focus();
         });
     });
