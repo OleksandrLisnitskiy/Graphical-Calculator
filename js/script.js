@@ -4,25 +4,6 @@ function appendToDisplay(value) {
 }
 
 
-// function evalInput() {
-//     try {
-//         display.textContent = eval(display.textContent);
-//     } catch (error) {
-//         display.textContent = 'Error';
-//     }
-// }
-
-// document.addEventListener('keydown', function(event) {
-//     // Check if the focus is not on an input field (to avoid interference)
-//     if (document.activeElement.tagName !== 'INPUT') {
-//         // Get the pressed key code
-//         const keyCode = event.key;
-//
-//         if(keyCode === "Escape"){
-//             inputField.value = "";
-//         }
-//     }
-// });
 
 document.addEventListener('DOMContentLoaded', function () {
     let funcButtons = document.querySelectorAll('.func');
