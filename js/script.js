@@ -2,7 +2,7 @@ let finalInput = "";
 let inputField = document.getElementById('display');
 let calcButton = document.getElementById("Calculate");
 let clearDisplayButton = document.getElementById("ClearDisplay");
-let historyBox = document.getElementById("history-box");
+let historyBox = document.getElementById("HistoryList");
 
 calcButton.addEventListener('click', function () {
     finalInput = inputField.value;
@@ -11,24 +11,29 @@ calcButton.addEventListener('click', function () {
     finalInput = finalInput.replace("ⁿ", "^n");
     finalInput = finalInput.replace("√", "^0.5");
     // finalInput = finalInput.replace("eⁿ", "e^n");
+    if (finalInput !== ""){
+        let newListElement = document.createElement('li');
+        newListElement.classList.add("history");
+        let spanElem = document.createElement('span')
+        spanElem.classList.add('finalInput');
+        spanElem.textContent = finalInput;
+        let listSplitter = document.createElement('hr');
+        listSplitter.classList.add("spliter");
+        newListElement.appendChild(spanElem);
+        newListElement.appendChild(listSplitter);
+        historyBox.appendChild(newListElement);
+        let solutionBox = document.getElementById("SolutionBox");
+        let graphBox = document.getElementById("DisplayGraph");
 
-    let newListElement = document.createElement('li');
-    newListElement.textContent = finalInput;
-    newListElement.classList.add("history");
-    let listSplitter = document.createElement('hr');
-    listSplitter.classList.add("spliter");
-    newListElement.appendChild(listSplitter);
-    historyBox.appendChild(newListElement);
-
-    let solutionBox = document.getElementById("SolutionBox");
-    let graphBox = document.getElementById("DisplayGraph");
-
-    if (solutionBox.classList.contains('hidden')) {
-        solutionBox.classList.remove('hidden');
-        graphBox.classList.remove('hidden');
-        solutionBox.classList.add('visible');
-        graphBox.classList.add('visible');
+        if (solutionBox.classList.contains('hidden')) {
+            solutionBox.classList.remove('hidden');
+            graphBox.classList.remove('hidden');
+            solutionBox.classList.add('visible');
+            graphBox.classList.add('visible');
+        }
     }
+
+
 });
 
 clearDisplayButton.addEventListener("click", function () {
