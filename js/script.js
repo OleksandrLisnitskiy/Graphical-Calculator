@@ -2,22 +2,22 @@ let finalInput = "";
 let inputField = document.getElementById('display');
 let calcButton = document.getElementById("Calculate");
 let clearDisplayButton = document.getElementById("ClearDisplay");
+let historyBox = document.getElementById("history-box");
 
 calcButton.addEventListener('click', function () {
-
     finalInput = inputField.value;
-    finalInput.replace("²", "^2");
-    finalInput.replace("³", "^3");
-    finalInput.replace("ⁿ", "^n");
-    finalInput.replace("√", "^0.5");
-    // finalInput.replace("eⁿ", "e^n");
+    finalInput = finalInput.replace("²", "^2");
+    finalInput = finalInput.replace("³", "^3");
+    finalInput = finalInput.replace("ⁿ", "^n");
+    finalInput = finalInput.replace("√", "^0.5");
+    // finalInput = finalInput.replace("eⁿ", "e^n");
+
     let newListElement = document.createElement('li');
     newListElement.textContent = finalInput;
     newListElement.classList.add("history");
-    let listSplitter = document.createElement('hr')
+    let listSplitter = document.createElement('hr');
     listSplitter.classList.add("spliter");
     newListElement.appendChild(listSplitter);
-    let historyBox = document.getElementById("HistoryList");
     historyBox.appendChild(newListElement);
 
     let solutionBox = document.getElementById("SolutionBox");
@@ -28,18 +28,17 @@ calcButton.addEventListener('click', function () {
         graphBox.classList.remove('hidden');
         solutionBox.classList.add('visible');
         graphBox.classList.add('visible');
-
-
     }
-
 });
 
-clearDisplayButton.addEventListener("click", function (){
+clearDisplayButton.addEventListener("click", function () {
     inputField.value = '';
 });
+
 document.addEventListener('DOMContentLoaded', function () {
     let funcButtons = document.querySelectorAll('button[name]');
     inputField.focus();
+
     // Function to handle the input and allow only integers
     function handleInput() {
         var inputValue = inputField.value;
@@ -51,18 +50,18 @@ document.addEventListener('DOMContentLoaded', function () {
         inputField.value = sanitizedValue;
     }
 
-    inputField.addEventListener('keydown', function(event) {
+    inputField.addEventListener('keydown', function (event) {
         // Check if the focus is not on an input field (to avoid interference)
 
         // Get the pressed key code
         if (event.key === "Escape" || event.keyCode === 27) {
             inputField.value = '';
         }
-
     });
 
     // Add event listener to the input field
     inputField.addEventListener('input', handleInput);
+
     // Function to insert a character next to the cursor
     function insertCharacterNextToCursor(char) {
         let cursorPosition = inputField.selectionStart;
@@ -73,8 +72,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Update the input field value and set the cursor position
         inputField.value = newValue;
-        inputField.setSelectionRange(cursorPosition+char.length, cursorPosition+char.length);
-
+        inputField.setSelectionRange(cursorPosition + char.length, cursorPosition + char.length);
     }
 
     // Add event listener to all buttons with class "func"
@@ -83,11 +81,6 @@ document.addEventListener('DOMContentLoaded', function () {
             // You can customize the character based on your needs
             let graphFunction = button.getAttribute("name");
             insertCharacterNextToCursor(graphFunction);
-
-
         });
     });
 });
-
-
-
