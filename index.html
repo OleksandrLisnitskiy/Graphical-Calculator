@@ -16,48 +16,57 @@
                 <div id="explanationBox">Calculate input</div>
             </div>
             <div id="graph_func">
-                 <button class="key func" name="x">x</button>
-                <button class="key func" name="y">y</button>
-                <button class="key func" name="^2">x²</button>
-                <button class="key func" name="^3">x³</button>
-                <button class="key func" name="^n">xⁿ</button>
-                <button class="key func" name="^0.5">√x</button>
-                <button class="key func" name="Σ(x)">Σ(x)</button>
-                <button class="key func" name="cos(x)">cos()</button>
-                <button class="key func" name="sin(x)">sin()</button>
-                <button class="key func" name="tan(x)">tan()</button>
-                <button class="key func" name="ln(x)">ln()</button>
-                <button class="key func" name="log(x)">log()</button>
-                <button class="key func" name="e">e</button>
-                <button class="key func" name="e^n">eⁿ</button>
-
+                <button class="key func" onclick="appendToDisplay('x')">x</button>
+                <button class="key func" onclick="appendToDisplay('y')">y</button>
+                <button class="key func" onclick="appendToDisplay('x^2')">x²</button>
+                <button class="key func" onclick="appendToDisplay('x^3')">x³</button>
+                <button class="key func" onclick="appendToDisplay('x^n')">xⁿ</button>
+                <button class="key func" onclick="appendToDisplay('sqrt(x)')">√x</button>
+                <button class="key func" onclick="appendToDisplay('sum(x)')">Σ(x)</button>
+                <button class="key func" onclick="appendToDisplay('cos()')">cos()</button>
+                <button class="key func" onclick="appendToDisplay('sin()')">sin()</button>
+                <button class="key func" onclick="appendToDisplay('tan()')">tan()</button>
+                <button class="key func" onclick="appendToDisplay('ln()')">ln()</button>
+                <button class="key func" onclick="appendToDisplay('log()')">log()</button>
+                <button class="key func" onclick="appendToDisplay('e')">e</button>
+                <button class="key func" onclick="appendToDisplay('e^n')">eⁿ</button>
             </div>
             <div id="historyNumpad">
-            <div class="keypad">
-                <button class="key operation2" onclick="appendToDisplay('1')">1</button>
-                <button class="key" onclick="appendToDisplay('2')">2</button>
-                <button class="key operation1" onclick="appendToDisplay('3')">3</button>
-                <button class="key" onclick="appendToDisplay('4')">4</button>
-                <button class="key" onclick="appendToDisplay('5')">5</button>
-                <button class="key" onclick="appendToDisplay('6')">6</button>
-                <button class="key" onclick="appendToDisplay('7')">7</button>
-                <button class="key" onclick="appendToDisplay('8')">8</button>
-                <button class="key" onclick="appendToDisplay('9')">9</button>
-                <button class="key" onclick="appendToDisplay('0')">0</button>
-                <button class="key" onclick="appendToDisplay('*')">*</button>
-                <button class="key" onclick="appendToDisplay('/')">/</button>
-                <button class="key" onclick="appendToDisplay('+')">+</button>
-                <button class="key" onclick="appendToDisplay('-')">-</button>
-                <button class="key operation" onclick="clearDisplay()">C</button>
-                <button class="key operation" onclick="appendToDisplay('=')">=</button>
-
+                <div class="keypad">
+                    <button class="key operation2" onclick="appendToDisplay('1')">1</button>
+                    <button class="key" onclick="appendToDisplay('2')">2</button>
+                    <button class="key operation1" onclick="appendToDisplay('3')">3</button>
+                    <button class="key" onclick="appendToDisplay('4')">4</button>
+                    <button class="key" onclick="appendToDisplay('5')">5</button>
+                    <button class="key" onclick="appendToDisplay('6')">6</button>
+                    <button class="key" onclick="appendToDisplay('7')">7</button>
+                    <button class="key" onclick="appendToDisplay('8')">8</button>
+                    <button class="key" onclick="appendToDisplay('9')">9</button>
+                    <button class="key" onclick="appendToDisplay('0')">0</button>
+                    <button class="key" onclick="appendToDisplay('*')">*</button>
+                    <button class="key" onclick="appendToDisplay('/')">/</button>
+                    <button class="key" onclick="appendToDisplay('+')">+</button>
+                    <button class="key" onclick="appendToDisplay('-')">-</button>
+                    <button class="key operation" onclick="clearDisplay()">C</button>
+                    <button class="key operation" onclick="appendToDisplay('=')">=</button>
+                </div>
+                <div id="history-box"></div>
             </div>
-            <div id="history-box"></div>
-            </div>
-
         </div>
     </div>
 
-    <script src="js/script.js"></script>
+    <!-- Div elements for the graphs -->
+    <div id="powerPlot"></div>
+    <div id="squareRootPlot"></div>
+    <div id="cosinePlot"></div>
+    <div id="sinePlot"></div>
+    <div id="tangentPlot"></div>
+    <div id="naturalLogPlot"></div>
+    <div id="logarithmPlot"></div>
+    <div id="exponentPlot"></div>
+
+    <!-- Script tags for your JavaScript files -->
+    <script type="module" src="js/maths.js"></script>
+    <script type="module" src="js/plotly-graphs.js"></script>
 </body>
 </html>
