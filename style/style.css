@@ -161,16 +161,23 @@ body {
     flex-direction: column;
 }
 .historyList{
+    padding-inline-start: 0;
     list-style: none;
 }
 .history{
+
     list-style: none;
     margin: 5px;
 }
+.finalInput{
+    padding-right: 10px;
+    margin-bottom: 0;
+    font-weight: bold;
+}
 .spliter{
-    width: 90%;
+    width: 99%;
     align-items: center;
-    margin-right: 50px;
+
     color: #888888;
 }
 #SolutionBox, #DisplayGraph{
