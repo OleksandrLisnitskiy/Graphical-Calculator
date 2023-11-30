@@ -21,10 +21,10 @@ calcButton.addEventListener('click', function () {
         listSplitter.classList.add("spliter");
         newListElement.appendChild(spanElem);
         newListElement.appendChild(listSplitter);
-        historyBox.appendChild(newListElement);
+        historyBox.insertBefore(newListElement, historyBox.firstChild);
         let solutionBox = document.getElementById("SolutionBox");
         let graphBox = document.getElementById("DisplayGraph");
-
+        inputField.value = '';
         if (solutionBox.classList.contains('hidden')) {
             solutionBox.classList.remove('hidden');
             graphBox.classList.remove('hidden');
