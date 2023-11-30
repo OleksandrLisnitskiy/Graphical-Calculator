@@ -5,7 +5,6 @@ function appendToDisplay(value) {
 
 
 
-
 document.addEventListener('DOMContentLoaded', function () {
     let funcButtons = document.querySelectorAll('.func');
     inputField.focus();
