@@ -157,8 +157,22 @@ body {
     background-color: white;
     height: 350px;
     width: 280px;
+    display: flex;
+    flex-direction: column;
 }
-
+.historyList{
+    list-style: none;
+}
+.history{
+    list-style: none;
+    margin: 5px;
+}
+.spliter{
+    width: 90%;
+    align-items: center;
+    margin-right: 50px;
+    color: #888888;
+}
 #SolutionBox, #DisplayGraph{
     width: 600px;
     background-color: white;

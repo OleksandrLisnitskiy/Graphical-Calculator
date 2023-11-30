@@ -1,8 +1,25 @@
-
+let finalInput = "";
 let inputField = document.getElementById('display');
 let calcButton = document.getElementById("Calculate");
 let clearDisplayButton = document.getElementById("ClearDisplay");
+
 calcButton.addEventListener('click', function () {
+
+    finalInput = inputField.value;
+    finalInput.replace("²", "^2");
+    finalInput.replace("³", "^3");
+    finalInput.replace("ⁿ", "^n");
+    finalInput.replace("√", "^0.5");
+    // finalInput.replace("eⁿ", "e^n");
+    let newListElement = document.createElement('li');
+    newListElement.textContent = finalInput;
+    newListElement.classList.add("history");
+    let listSplitter = document.createElement('hr')
+    listSplitter.classList.add("spliter");
+    newListElement.appendChild(listSplitter);
+    let historyBox = document.getElementById("HistoryList");
+    historyBox.appendChild(newListElement);
+
     let solutionBox = document.getElementById("SolutionBox");
     let graphBox = document.getElementById("DisplayGraph");
 
@@ -11,6 +28,8 @@ calcButton.addEventListener('click', function () {
         graphBox.classList.remove('hidden');
         solutionBox.classList.add('visible');
         graphBox.classList.add('visible');
+
+
     }
 
 });
@@ -62,8 +81,10 @@ document.addEventListener('DOMContentLoaded', function () {
     funcButtons.forEach(function (button) {
         button.addEventListener('click', function () {
             // You can customize the character based on your needs
-            insertCharacterNextToCursor(button.getAttribute("name"));
-            inputField.focus();
+            let graphFunction = button.getAttribute("name");
+            insertCharacterNextToCursor(graphFunction);
+
+
         });
     });
 });

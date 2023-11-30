@@ -21,7 +21,7 @@
                 <button class="key func" name="²">x²</button>
                 <button class="key func" name="³">x³</button>
                 <button class="key func" name="ⁿ">xⁿ</button>
-                <button class="key func" name="√">√x</button>
+                <button class="key func" name="√()">√(x)</button>
                 <button class="key func" name="Σ()">Σ(x)</button>
                 <button class="key func" name="cos()">cos()</button>
                 <button class="key func" name="sin()">sin()</button>
@@ -29,7 +29,7 @@
                 <button class="key func" name="ln()">ln()</button>
                 <button class="key func" name="log()">log()</button>
                 <button class="key func" name="e">e</button>
-                <button class="key func" name="e^">eⁿ</button>
+                <button class="key func" name="eⁿ">eⁿ</button>
             </div>
             <div id="historyNumpad">
                 <div class="keypad">
@@ -50,7 +50,11 @@
                     <button class="key operation" id="ClearDisplay">C</button>
                     <button class="key operation" name="=">=</button>
                 </div>
-                <div id="history-box"></div>
+                <div id="history-box">
+                    <ul class="historyList" id="HistoryList">
+
+                    </ul>
+                </div>
             </div>
         </div>
         <div id="SolutionBox" class="hidden"></div>
