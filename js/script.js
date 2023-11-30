@@ -1,19 +1,32 @@
+
 let inputField = document.getElementById('display');
-function appendToDisplay(value) {
-    display.value += value;
-}
+let calcButton = document.getElementById("Calculate");
+let clearDisplayButton = document.getElementById("ClearDisplay");
+calcButton.addEventListener('click', function () {
+    let solutionBox = document.getElementById("SolutionBox");
+    let graphBox = document.getElementById("DisplayGraph");
 
+    if (solutionBox.classList.contains('hidden')) {
+        solutionBox.classList.remove('hidden');
+        graphBox.classList.remove('hidden');
+        solutionBox.classList.add('visible');
+        graphBox.classList.add('visible');
+    }
 
+});
 
+clearDisplayButton.addEventListener("click", function (){
+    inputField.value = '';
+});
 document.addEventListener('DOMContentLoaded', function () {
-    let funcButtons = document.querySelectorAll('.func');
+    let funcButtons = document.querySelectorAll('button[name]');
     inputField.focus();
     // Function to handle the input and allow only integers
     function handleInput() {
         var inputValue = inputField.value;
 
         // Remove non-numeric characters except for the minus sign at the beginning
-        var sanitizedValue = inputValue.replace(/[^-0-9xy=+*/()]/g, '');
+        var sanitizedValue = inputValue.replace(/[^-0-9xy=+*/()tansicolgeΣ²³ⁿ√]/g, '');
 
         // Update the input field value
         inputField.value = sanitizedValue;
@@ -22,10 +35,10 @@ document.addEventListener('DOMContentLoaded', function () {
     inputField.addEventListener('keydown', function(event) {
         // Check if the focus is not on an input field (to avoid interference)
 
-            // Get the pressed key code
-            if (event.key === "Escape" || event.keyCode === 27) {
-                inputField.value = '';
-            }
+        // Get the pressed key code
+        if (event.key === "Escape" || event.keyCode === 27) {
+            inputField.value = '';
+        }
 
     });
 
@@ -41,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Update the input field value and set the cursor position
         inputField.value = newValue;
-        inputField.setSelectionRange(cursorPosition + 1, cursorPosition);
+        inputField.setSelectionRange(cursorPosition+char.length, cursorPosition+char.length);
 
     }
 
@@ -55,7 +68,5 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-document.addEventListener('DOMContentLoaded', function () {
 
-});
 

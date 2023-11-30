@@ -1,7 +1,6 @@
 body {
     display: flex;
     /*align-items: center;*/
-
     justify-content: center;
     height: 100vh;
     margin: 100px;
@@ -16,6 +15,7 @@ body {
 #numpad {
     background-color: #000; /* Black background for the numpad */
 }
+
 .input-container {
     position: relative;
     display: inline-block;
@@ -156,7 +156,23 @@ body {
     border-radius: 10px;
     background-color: white;
     height: 350px;
-    width: 45%;
+    width: 280px;
 }
 
+#SolutionBox, #DisplayGraph{
+    width: 600px;
+    background-color: white;
+    position: static;
+    border-radius: 10px;
+    margin-top: 20px;
+    height: 20px;
+    padding: 20px;
+}
 
+.hidden{
+    display: none;
+}
+
+.visible{
+    display: block;
+}
