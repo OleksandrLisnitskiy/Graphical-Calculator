@@ -12,15 +12,13 @@ calcButton.addEventListener('click', function () {
     finalInput = finalInput.replace("√", "^0.5");
     // finalInput = finalInput.replace("eⁿ", "e^n");
     if (finalInput !== ""){
+        inputField.focus();
         let newListElement = document.createElement('li');
         newListElement.classList.add("history");
         let spanElem = document.createElement('span')
         spanElem.classList.add('finalInput');
         spanElem.textContent = finalInput;
-        let listSplitter = document.createElement('hr');
-        listSplitter.classList.add("spliter");
         newListElement.appendChild(spanElem);
-        newListElement.appendChild(listSplitter);
         historyBox.insertBefore(newListElement, historyBox.firstChild);
         let solutionBox = document.getElementById("SolutionBox");
         let graphBox = document.getElementById("DisplayGraph");
@@ -77,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Update the input field value and set the cursor position
         inputField.value = newValue;
-        inputField.setSelectionRange(cursorPosition + char.length, cursorPosition + char.length);
+        inputField.setSelectionRange(inputValue.length, inputValue.length);
     }
 
     // Add event listener to all buttons with class "func"
