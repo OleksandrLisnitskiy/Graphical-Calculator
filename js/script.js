@@ -20,6 +20,25 @@ const superscriptMap = {
     'x': 'ˣ',
     'y': 'ʸ',
 };
+const opositSuperscriptMap = {
+    '⁰': '0',
+    '¹': '1',
+    '²': '2',
+    '³': '3',
+    '⁴': '4',
+    '⁵': '5',
+    '⁶': '6',
+    '⁷': '7',
+    '⁸': '8',
+    '⁹': '9',
+    '⁺': '+',
+    '⁻': '-',
+    '⁼': '=',
+    '⁽': '(',
+    '⁾': ')',
+    'ˣ': 'x',
+    'ʸ': 'y',
+};
 
 let inputField = document.getElementById('display');
 let calcButton = document.getElementById("Calculate");
@@ -105,16 +124,22 @@ function clearHistoryList() {
 
 calcButton.addEventListener('click', function () {
     let finalInput = inputField.value;
-    finalInput = finalInput.replace("²", "**2");
-    finalInput = finalInput.replace("³", "**3");
-    finalInput = finalInput.replace("ⁿ", "**"); // Assuming user enters the power after ⁿ
+    // Assuming user enters the power after ⁿ
     finalInput = finalInput.replace("√", "squareRoot"); // Using squareRoot function for root calculations
+    const regex = /[⁰¹²³⁴⁵⁶⁷⁸⁹ˣʸ⁾⁽⁻⁼⁺]+/g;
 
+// Replace superscript with "**(" at the beginning and ")" at the end
+    finalInput = finalInput.replace(regex, '**($&)');
+    finalInput = finalInput.replace(regex, match => {
+        // Use the mapping to convert each matched upper index character
+        return match.split('').map(char => opositSuperscriptMap[char]).join('');
+    });
+    alert(finalInput);
     // Add more replacements as necessary based on the symbols used in your UI
 
     if (finalInput !== "") {
         let result = calculateExpression(finalInput);
-        solutionBox.textContent = inputField + "=" + result;
+        solutionBox.textContent = inputField.value + "=" + result;
         solutionBox.classList.remove('hidden');
         graphBox.classList.remove('hidden');
 
