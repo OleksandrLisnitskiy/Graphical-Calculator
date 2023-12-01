@@ -1,89 +1,83 @@
-let finalInput = "";
+// Import necessary functions from calculations.js
+import { add, subtract, multiply, divide, power, squareRoot, sum, cosine, sine, tangent, naturalLog, logarithm, exponent } from './calculations.js';
+
 let inputField = document.getElementById('display');
 let calcButton = document.getElementById("Calculate");
 let clearDisplayButton = document.getElementById("ClearDisplay");
 let historyBox = document.getElementById("HistoryList");
+let solutionBox = document.getElementById("SolutionBox");
+
+// Function to parse and calculate the expression
+function calculateExpression(expression) {
+    // Simple parsing logic - this is a placeholder for a more complex parser
+    // You can replace this with a more advanced expression evaluation logic
+    let result;
+    try {
+        result = eval(expression); // Note: using eval is generally not recommended due to security risks
+    } catch (error) {
+        result = "Invalid Expression";
+    }
+    return result;
+}
 
 calcButton.addEventListener('click', function () {
-    finalInput = inputField.value;
-    finalInput = finalInput.replace("²", "^2");
-    finalInput = finalInput.replace("³", "^3");
-    finalInput = finalInput.replace("ⁿ", "^n");
-    finalInput = finalInput.replace("√", "^0.5");
-    // finalInput = finalInput.replace("eⁿ", "e^n");
-    if (finalInput !== ""){
-        inputField.focus();
+    let finalInput = inputField.value;
+    finalInput = finalInput.replace("²", "**2");
+    finalInput = finalInput.replace("³", "**3");
+    finalInput = finalInput.replace("ⁿ", "**"); // Assuming user enters the power after ⁿ
+    finalInput = finalInput.replace("√", "squareRoot"); // Using squareRoot function for root calculations
+
+    // Add more replacements as necessary based on the symbols used in your UI
+
+    if (finalInput !== "") {
+        let result = calculateExpression(finalInput);
+        solutionBox.textContent = result;
+        solutionBox.classList.remove('hidden');
+
         let newListElement = document.createElement('li');
         newListElement.classList.add("history");
-        let spanElem = document.createElement('span')
+        let spanElem = document.createElement('span');
         spanElem.classList.add('finalInput');
-        spanElem.textContent = finalInput;
+        spanElem.textContent = finalInput + " = " + result;
         newListElement.appendChild(spanElem);
         historyBox.insertBefore(newListElement, historyBox.firstChild);
-        let solutionBox = document.getElementById("SolutionBox");
-        let graphBox = document.getElementById("DisplayGraph");
+
         inputField.value = '';
-        if (solutionBox.classList.contains('hidden')) {
-            solutionBox.classList.remove('hidden');
-            graphBox.classList.remove('hidden');
-            solutionBox.classList.add('visible');
-            graphBox.classList.add('visible');
-        }
     }
-
-
 });
 
 clearDisplayButton.addEventListener("click", function () {
     inputField.value = '';
+    solutionBox.classList.add('hidden');
 });
 
 document.addEventListener('DOMContentLoaded', function () {
     let funcButtons = document.querySelectorAll('button[name]');
     inputField.focus();
 
-    // Function to handle the input and allow only integers
-    function handleInput() {
-        var inputValue = inputField.value;
-
-        // Remove non-numeric characters except for the minus sign at the beginning
-        var sanitizedValue = inputValue.replace(/[^-0-9xy=+*/()tansicolgeΣ²³ⁿ√]/g, '');
-
-        // Update the input field value
+    inputField.addEventListener('input', function () {
+        var sanitizedValue = inputField.value.replace(/[^-0-9xy=+*/()tansicolgeΣ²³ⁿ√]/g, '');
         inputField.value = sanitizedValue;
-    }
+    });
 
     inputField.addEventListener('keydown', function (event) {
-        // Check if the focus is not on an input field (to avoid interference)
-
-        // Get the pressed key code
         if (event.key === "Escape" || event.keyCode === 27) {
             inputField.value = '';
         }
     });
 
-    // Add event listener to the input field
-    inputField.addEventListener('input', handleInput);
-
-    // Function to insert a character next to the cursor
-    function insertCharacterNextToCursor(char) {
-        let cursorPosition = inputField.selectionStart;
-        let inputValue = inputField.value;
-
-        // Insert the character next to the cursor
-        let newValue = inputValue.slice(0, cursorPosition) + char + inputValue.slice(cursorPosition);
-
-        // Update the input field value and set the cursor position
-        inputField.value = newValue;
-        inputField.setSelectionRange(inputValue.length, inputValue.length);
-    }
-
-    // Add event listener to all buttons with class "func"
     funcButtons.forEach(function (button) {
         button.addEventListener('click', function () {
-            // You can customize the character based on your needs
             let graphFunction = button.getAttribute("name");
             insertCharacterNextToCursor(graphFunction);
         });
     });
+
+    function insertCharacterNextToCursor(char) {
+        let cursorPosition = inputField.selectionStart;
+        let inputValue = inputField.value;
+        let newValue = inputValue.slice(0, cursorPosition) + char + inputValue.slice(cursorPosition);
+        inputField.value = newValue;
+        inputField.setSelectionRange(cursorPosition + char.length, cursorPosition + char.length);
+    }
 });
