@@ -7,18 +7,25 @@ let clearDisplayButton = document.getElementById("ClearDisplay");
 let historyBox = document.getElementById("HistoryList");
 let solutionBox = document.getElementById("SolutionBox");
 
-// Function to parse and calculate the expression
 function calculateExpression(expression) {
-    // Simple parsing logic - this is a placeholder for a more complex parser
-    // You can replace this with a more advanced expression evaluation logic
+    // Replace textual representation with function calls and constant values
+    expression = expression.replace(/sin\(/g, 'sine(');
+    expression = expression.replace(/cos\(/g, 'cosine(');
+    expression = expression.replace(/tan\(/g, 'tangent(');
+    expression = expression.replace(/ln\(/g, 'naturalLog(');
+    expression = expression.replace(/log\(/g, 'logarithm(10,'); // Assuming base 10 for log
+    expression = expression.replace(/\be\b/g, '2.71828'); // Replace 'e' with its constant value, ensuring it's a standalone 'e'
+
+    // Evaluate the expression
     let result;
     try {
-        result = eval(expression); // Note: using eval is generally not recommended due to security risks
+        result = eval(expression); 
     } catch (error) {
         result = "Invalid Expression";
     }
     return result;
 }
+
 
 calcButton.addEventListener('click', function () {
     let finalInput = inputField.value;
