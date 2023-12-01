@@ -1,6 +1,24 @@
 // Import necessary functions from calculations.js
 import { add, subtract, multiply, divide, power, squareRoot, sum, cosine, sine, tangent, naturalLog, logarithm, exponent } from './calculations.js';
 
+const superscriptMap = {
+    '0': '⁰',
+    '1': '¹',
+    '2': '²',
+    '3': '³',
+    '4': '⁴',
+    '5': '⁵',
+    '6': '⁶',
+    '7': '⁷',
+    '8': '⁸',
+    '9': '⁹',
+    '+': '⁺',
+    '-': '⁻',
+    '=': '⁼',
+    '(': '⁽',
+    ')': '⁾',
+};
+
 let inputField = document.getElementById('display');
 let calcButton = document.getElementById("Calculate");
 let clearDisplayButton = document.getElementById("ClearDisplay");
@@ -19,13 +37,61 @@ function calculateExpression(expression) {
     // Evaluate the expression
     let result;
     try {
-        result = eval(expression); 
+        result = eval(expression);
     } catch (error) {
         result = "Invalid Expression";
     }
     return result;
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+    let funcButtons = document.querySelectorAll('button[name]');
+    inputField.focus();
+
+    inputField.addEventListener('input', function () {
+        var sanitizedValue = inputField.value.replace(/[^-0-9xy=+*/()tansicolgeΣ²³ⁿ√]/g, '');
+        inputField.value = sanitizedValue;
+    });
+
+    inputField.addEventListener('keydown', function (event) {
+        if (event.key === "Escape" || event.keyCode === 27) {
+            inputField.value = '';
+        } else if (event.shiftKey && event.key === "^") {
+            toggleSuperscriptNextToCursor();
+            event.preventDefault(); // Prevent the default behavior of the '^' key
+        }
+    });
+
+    funcButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            let graphFunction = button.getAttribute("name");
+            insertCharacterNextToCursor(graphFunction);
+        });
+    });
+
+    function insertCharacterNextToCursor(char) {
+        let cursorPosition = inputField.selectionStart;
+        let inputValue = inputField.value;
+        let newValue = inputValue.slice(0, cursorPosition) + char + inputValue.slice(cursorPosition);
+        inputField.value = newValue;
+        inputField.setSelectionRange(cursorPosition + char.length, cursorPosition + char.length);
+    }
+
+    function toggleSuperscriptNextToCursor() {
+        let cursorPosition = inputField.selectionStart;
+        let inputValue = inputField.value;
+        let currentChar = inputValue.charAt(cursorPosition - 1);
+
+        if (superscriptMap.hasOwnProperty(currentChar)) {
+            // If the current character has a superscript representation, toggle it
+            let superscriptValue = superscriptMap[currentChar];
+            let newValue = inputValue.slice(0, cursorPosition - 1) + superscriptValue + inputValue.slice(cursorPosition);
+            inputField.value = newValue;
+            // Move the cursor to the end of the inserted superscript
+            inputField.setSelectionRange(cursorPosition, cursorPosition);
+        }
+    }
+});
 
 calcButton.addEventListener('click', function () {
     let finalInput = inputField.value;
@@ -56,35 +122,4 @@ calcButton.addEventListener('click', function () {
 clearDisplayButton.addEventListener("click", function () {
     inputField.value = '';
     solutionBox.classList.add('hidden');
-});
-
-document.addEventListener('DOMContentLoaded', function () {
-    let funcButtons = document.querySelectorAll('button[name]');
-    inputField.focus();
-
-    inputField.addEventListener('input', function () {
-        var sanitizedValue = inputField.value.replace(/[^-0-9xy=+*/()tansicolgeΣ²³ⁿ√]/g, '');
-        inputField.value = sanitizedValue;
-    });
-
-    inputField.addEventListener('keydown', function (event) {
-        if (event.key === "Escape" || event.keyCode === 27) {
-            inputField.value = '';
-        }
-    });
-
-    funcButtons.forEach(function (button) {
-        button.addEventListener('click', function () {
-            let graphFunction = button.getAttribute("name");
-            insertCharacterNextToCursor(graphFunction);
-        });
-    });
-
-    function insertCharacterNextToCursor(char) {
-        let cursorPosition = inputField.selectionStart;
-        let inputValue = inputField.value;
-        let newValue = inputValue.slice(0, cursorPosition) + char + inputValue.slice(cursorPosition);
-        inputField.value = newValue;
-        inputField.setSelectionRange(cursorPosition + char.length, cursorPosition + char.length);
-    }
 });
