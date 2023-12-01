@@ -46,7 +46,6 @@ let clearDisplayButton = document.getElementById("ClearDisplay");
 let historyBox = document.getElementById("HistoryList");
 let solutionBox = document.getElementById("SolutionBox");
 let graphBox = document.getElementById("DisplayGraph");
-// let historyList = document.querySelectorAll("li");
 
 function calculateExpression(expression) {
     // Replace textual representation with function calls and constant values
@@ -101,26 +100,34 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function toggleSuperscriptNextToCursor() {
-        let cursorPosition = inputField.selectionStart;
+        let selectionStart = inputField.selectionStart;
+        let selectionEnd = inputField.selectionEnd;
         let inputValue = inputField.value;
-        let currentChar = inputValue.charAt(cursorPosition - 1);
+        let selectedText = inputValue.substring(selectionStart, selectionEnd);
 
-        if (superscriptMap.hasOwnProperty(currentChar)) {
-            // If the current character has a superscript representation, toggle it
-            let superscriptValue = superscriptMap[currentChar];
-            let newValue = inputValue.slice(0, cursorPosition - 1) + superscriptValue + inputValue.slice(cursorPosition);
+        // If there's a selection, replace the selected text with superscript representation
+        if (selectedText.length > 0) {
+            let superscriptValue = superscriptText(selectedText);
+            let newValue = inputValue.substring(0, selectionStart) +
+                superscriptValue +
+                inputValue.substring(selectionEnd);
+
             inputField.value = newValue;
             // Move the cursor to the end of the inserted superscript
-            inputField.setSelectionRange(cursorPosition, cursorPosition);
+            inputField.setSelectionRange(selectionStart + superscriptValue.length, selectionStart + superscriptValue.length);
         }
     }
+
+    function superscriptText(text) {
+        return text.split('').map(char => superscriptMap[char] || char).join('');
+    }
+
     document.getElementById("clearHistory").addEventListener("click", clearHistoryList);
 });
 
 function clearHistoryList() {
     historyBox.textContent = '';
 }
-
 
 calcButton.addEventListener('click', function () {
     let finalInput = inputField.value;
@@ -151,11 +158,9 @@ calcButton.addEventListener('click', function () {
         newListElement.appendChild(spanElem);
         newListElement.addEventListener("click", function () {
             inputField.value = newListElement.textContent;
-
         });
 
         historyBox.insertBefore(newListElement, historyBox.firstChild);
-        
 
         inputField.value = '';
     }
@@ -165,6 +170,4 @@ clearDisplayButton.addEventListener("click", function () {
     inputField.value = '';
     solutionBox.classList.add('hidden');
     graphBox.classList.add('hidden');
-
 });
-
