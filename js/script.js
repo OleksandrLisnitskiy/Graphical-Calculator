@@ -6,6 +6,8 @@ let calcButton = document.getElementById("Calculate");
 let clearDisplayButton = document.getElementById("ClearDisplay");
 let historyBox = document.getElementById("HistoryList");
 let solutionBox = document.getElementById("SolutionBox");
+let graphBox = document.getElementById("DisplayGraph");
+// let historyList = document.querySelectorAll("li");
 
 // Function to parse and calculate the expression
 function calculateExpression(expression) {
@@ -31,16 +33,24 @@ calcButton.addEventListener('click', function () {
 
     if (finalInput !== "") {
         let result = calculateExpression(finalInput);
-        solutionBox.textContent = result;
+        solutionBox.textContent = inputField + "=" + result;
         solutionBox.classList.remove('hidden');
+        graphBox.classList.remove('hidden');
 
         let newListElement = document.createElement('li');
         newListElement.classList.add("history");
         let spanElem = document.createElement('span');
         spanElem.classList.add('finalInput');
-        spanElem.textContent = finalInput + " = " + result;
+        spanElem.textContent = inputField.value;
         newListElement.appendChild(spanElem);
+        newListElement.addEventListener("click", function () {
+            inputField.value = newListElement.textContent;
+
+        });
+
         historyBox.insertBefore(newListElement, historyBox.firstChild);
+        // historyList = document.querySelectorAll("li");
+        // alert(historyList[0].textContent);
 
         inputField.value = '';
     }
@@ -49,6 +59,8 @@ calcButton.addEventListener('click', function () {
 clearDisplayButton.addEventListener("click", function () {
     inputField.value = '';
     solutionBox.classList.add('hidden');
+    graphBox.classList.add('hidden');
+
 });
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -65,7 +77,6 @@ document.addEventListener('DOMContentLoaded', function () {
             inputField.value = '';
         }
     });
-
     funcButtons.forEach(function (button) {
         button.addEventListener('click', function () {
             let graphFunction = button.getAttribute("name");
@@ -80,4 +91,9 @@ document.addEventListener('DOMContentLoaded', function () {
         inputField.value = newValue;
         inputField.setSelectionRange(cursorPosition + char.length, cursorPosition + char.length);
     }
+    document.getElementById("clearHistory").addEventListener("click", clearHistoryList)
 });
+
+function clearHistoryList() {
+    historyBox.textContent = '';
+}

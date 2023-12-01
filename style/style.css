@@ -132,11 +132,12 @@ body {
     background-color: #ff9f33; /* Darker orange on hover */
 }
 
-.operation {
+.operation3 {
     border-bottom-left-radius: 5px;
+}
+.operation4{
     border-bottom-right-radius: 5px;
 }
-
 .operation1 {
     border-top-right-radius: 5px;
 }
@@ -180,14 +181,42 @@ body {
     background-color: #e5e4e4;
 }
 .historyList{
+    margin-top: 0px;
     padding-inline-start: 0;
     list-style: none;
 }
 .history{
-    border: black 1px solid;
+    border-bottom: #d3d3d3 1px solid;
     list-style: none;
-    margin: 5px;
+    margin: 2px;
+    border-radius: 2px;
     padding: 5px;
+}
+.history:hover{
+    cursor: pointer;
+    box-shadow: 0 0 10px darkorange;
+    background-color: rgba(255, 140, 0, 0.87);
+    color: white;
+    transition: all 0.15s linear;
+}
+
+#clearHistory{
+    position: relative;
+    margin-top: auto;
+    width: 100%;
+    height: 40px;
+    font-weight: 600;
+    font-size: 15px;
+    background-color: #d7d7d7;
+    border-style: none;
+    opacity: 0.8;
+}
+#clearHistory:hover{
+    transition: all 0.2s linear;
+    background-color: #ffa333;
+    opacity: 1;
+    color: #3d3d3d;
+
 }
 .finalInput{
     padding-right: 10px;
