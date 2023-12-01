@@ -17,6 +17,8 @@ const superscriptMap = {
     '=': '⁼',
     '(': '⁽',
     ')': '⁾',
+    'x': 'ˣ',
+    'y': 'ʸ',
 };
 
 let inputField = document.getElementById('display');
