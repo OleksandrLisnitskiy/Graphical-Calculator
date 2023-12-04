@@ -1,4 +1,4 @@
-.body-container {
+body {
     display: flex;
     justify-content: center;
     height: 100vh;
@@ -111,21 +111,11 @@
     margin-right: 2px;
 }
 
-#historyNumpad {
-    display: flex;
-    justify-content: flex-end; /* Align to the right */
-}
-
 .keypad {
     width: 300px;
     margin-top: 5px;
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Updated to 4 columns for the rearranged buttons */
-}
-
-#ClearDisplay {
-    grid-column: 4; /* Move the "C" button to the 4th column */
-    border-top-right-radius: 5px; /* Adjust the border radius for the top right corner */
+    grid-template-columns: repeat(4, 1fr);
 }
 
 .key {
@@ -145,17 +135,19 @@
 .operation3 {
     border-bottom-left-radius: 5px;
 }
-
-.operation4 {
+.operation4{
     border-bottom-right-radius: 5px;
 }
-
 .operation1 {
     border-top-right-radius: 5px;
 }
 
 .operation2 {
     border-top-left-radius: 5px;
+}
+
+#historyNumpad {
+    display: flex;
 }
 
 #history-box {
@@ -172,11 +164,13 @@
 #history-box::-webkit-scrollbar {
     width: 8px;
     margin-right: 5px;
+
 }
 
 #history-box::-webkit-scrollbar-thumb {
     background-color: #c0c0c0;
     border-radius: 10px;
+
 }
 
 #history-box::-webkit-scrollbar-thumb:hover {
@@ -186,22 +180,19 @@
 #history-box::-webkit-scrollbar-track {
     background-color: #e5e4e4;
 }
-
-.historyList {
+.historyList{
     margin-top: 0px;
     padding-inline-start: 0;
     list-style: none;
 }
-
-.history {
+.history{
     border-bottom: #d3d3d3 1px solid;
     list-style: none;
     margin: 2px;
     border-radius: 2px;
     padding: 5px;
 }
-
-.history:hover {
+.history:hover{
     cursor: pointer;
     box-shadow: 0 0 10px darkorange;
     background-color: rgba(255, 140, 0, 0.87);
@@ -209,7 +200,7 @@
     transition: all 0.15s linear;
 }
 
-#clearHistory {
+#clearHistory{
     position: relative;
     margin-top: auto;
     width: 100%;
@@ -220,19 +211,19 @@
     border-style: none;
     opacity: 0.8;
 }
-
-#clearHistory:hover {
+#clearHistory:hover{
     transition: all 0.2s linear;
     background-color: #ffa333;
     opacity: 1;
     color: #3d3d3d;
-}
 
-.finalInput {
+}
+.finalInput{
     padding-right: 10px;
     margin-bottom: 0;
     font-weight: bold;
 }
+
 
 #SolutionBox,
 #DisplayGraph {
@@ -252,3 +243,4 @@
 .visible {
     display: block;
 }
+

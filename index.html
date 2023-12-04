@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +7,7 @@
     <link rel="stylesheet" href="style/style.css">
     <title>Numpad</title>
 </head>
-<body class="body-container">
+<body>
 <div class="numpad-container">
     <img src="Prototypes/logo2.png" class="logo" alt="">
     <div id="numpad">
@@ -38,41 +39,39 @@
             <button class="key func" name="log()">log()</button>
             <button class="key func" name="e">e</button>
             <button class="key func" name="eⁿ">eⁿ</button>
-            <button class="key func" name="∞">∞</button>
+            <button class="key func" name ="∞">∞</button>
+        </div>
+        <div id="historyNumpad">
+            <div class="keypad">
+                <button class="key operation2" name ="1">1</button>
+                <button class="key" name ="2">2</button>
+                <button class="key" name ="3">3</button>
+                <button class="key" name="4">4</button>
+                <button class="key" name="5">5</button>
+                <button class="key" name="6">6</button>
+                <button class="key" name="7">7</button>
+                <button class="key" name="8">8</button>
+                <button class="key" name="9">9</button>
+                <button class="key" name="0">0</button>
+                <button class="key" name="×">×</button>
+                <button class="key" name="÷">÷</button>
+                <button class="key" name="+">+</button>
+                <button class="key" name="-">-</button>
+                <button class="key" name="(">(</button>
+                <button class="key" name=")">)</button>
+                <button class="key operation4" id="ClearDisplay">C</button>
+                <button class="key operation3" name=".">.</button>
+                <button class="key operation4" name="=">=</button>
+            </div>
+            <div id="history-box">
+                <ul class="historyList" id="HistoryList"></ul>
+                <button id="clearHistory">Clear History</button>
+            </div>
         </div>
     </div>
-    <div id="historyNumpad">
-        <div class="keypad">
-            <button class="key" name="1">1</button>
-            <button class="key" name="2">2</button>
-            <button class="key" name="3">3</button>
-            <button class="key" id="ClearDisplay">C</button>
-            <button class="key" name="4">4</button>
-            <button class="key" name="5">5</button>
-            <button class="key" name="6">6</button>
-            <button class="key" name="×">×</button>
-            <button class="key" name="7">7</button>
-            <button class="key" name="8">8</button>
-            <button class="key" name="9">9</button>
-            <button class="key" name="×">×</button>
-            <button class="key" name="0">0</button>
-            <button class="key" name="÷">÷</button>
-            <button class="key" name="+">+</button>
-            <button class="key" name="-">-</button>
-            <button class="key" name="(">(</button>
-            <button class="key" name=")">)</button>
-            <button class="key operation3" name=".">.</button>
-            <button class="key operation4" name="=">=</button>
-        </div>
-        <div id="history-box">
-            <ul class="historyList" id="HistoryList"></ul>
-            <button id="clearHistory">Clear History</button>
-        </div>
-    </div>
+    <div id="SolutionBox" class="hidden"></div>
+    <div id="DisplayGraph" class="hidden"></div>
 </div>
-
-<div id="SolutionBox" class="hidden"></div>
-<div id="DisplayGraph" class="hidden"></div>
 
 <div id="powerPlot"></div>
 <div id="squareRootPlot"></div>
