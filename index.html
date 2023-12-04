@@ -6,82 +6,86 @@
     <link rel="stylesheet" href="style/style.css">
     <title>Numpad</title>
 </head>
-<body>
-    <div class="numpad-container">
-        <img src="Prototypes/logo2.png" class="logo" alt="">
-        <div id="numpad">
-            <div class="input-container">
-                <input id="display" placeholder="Enter your equation" maxlength="53">
-                <button id="Calculate">=</button>
-                <div id="explanationBox">Calculate input</div>
-            </div>
-            <div class="equation-input-container">
-                <input id="equationInput" placeholder="Enter your equation (e.g., 2x^2 + 3x + 1 = 0)" maxlength="100">
-                <select id="equationType">
-                    <option value="linear">Linear Equation</option>
-                    <option value="quadratic">Quadratic Equation</option>
-                    <option value="cubic">Cubic Equation</option>
-                </select>
-                <button id="solveEquation">Solve Equation</button>
-            </div>
-            <div id="graph_func">
-                <button class="key func" name="x">x</button>
-                <button class="key func" name="y">y</button>
-                <button class="key func" name="²">x²</button>
-                <button class="key func" name="³">x³</button>
-                <button class="key func" name="ⁿ">xⁿ</button>
-                <button class="key func" name="√()">√(x)</button>
-                <button class="key func" name="cos()">cos()</button>
-                <button class="key func" name="sin()">sin()</button>
-                <button class="key func" name="tan()">tan()</button>
-                <button class="key func" name="ln()">ln()</button>
-                <button class="key func" name="log()">log()</button>
-                <button class="key func" name="e">e</button>
-                <button class="key func" name="eⁿ">eⁿ</button>
-                <button class="key func" name ="∞">∞</button>
-            </div>
-            <div id="historyNumpad">
-                <div class="keypad">
-                    <button class="key operation2" name ="1">1</button>
-                    <button class="key" name ="2">2</button>
-                    <button class="key operation1" name ="3">3</button>
-                    <button class="key" name="4">4</button>
-                    <button class="key" name="5">5</button>
-                    <button class="key" name="6">6</button>
-                    <button class="key" name="7">7</button>
-                    <button class="key" name="8">8</button>
-                    <button class="key" name="9">9</button>
-                    <button class="key" name="0">0</button>
-                    <button class="key" name="*">*</button>
-                    <button class="key" name="/">/</button>
-                    <button class="key" name="+">+</button>
-                    <button class="key" name="-">-</button>
-                    <button class="key operation4" id="ClearDisplay">C</button>
-                    <button class="key operation3" name=".">.</button>
-                    <button class="key operation4" name="=">=</button>
-                </div>
-                <div id="history-box">
-                    <ul class="historyList" id="HistoryList"></ul>
-                    <button id="clearHistory">Clear History</button>
-                </div>
-            </div>
+<body class="body-container">
+<div class="numpad-container">
+    <img src="Prototypes/logo2.png" class="logo" alt="">
+    <div id="numpad">
+        <div class="input-container">
+            <input id="display" placeholder="Enter your equation" maxlength="53">
+            <button id="Calculate">=</button>
+            <div id="explanationBox">Calculate input</div>
         </div>
-        <div id="SolutionBox" class="hidden"></div>
-        <div id="DisplayGraph" class="hidden"></div>
+        <div class="equation-input-container">
+            <input id="equationInput" placeholder="Enter your equation (e.g., 2x^2 + 3x + 1 = 0)" maxlength="100">
+            <select id="equationType">
+                <option value="linear">Linear Equation</option>
+                <option value="quadratic">Quadratic Equation</option>
+                <option value="cubic">Cubic Equation</option>
+            </select>
+            <button id="solveEquation">Solve Equation</button>
+        </div>
+        <div id="graph_func">
+            <button class="key func" name="x">x</button>
+            <button class="key func" name="y">y</button>
+            <button class="key func" name="²">x²</button>
+            <button class="key func" name="³">x³</button>
+            <button class="key func" name="π">π</button>
+            <button class="key func" name="√()">√(x)</button>
+            <button class="key func" name="cos()">cos()</button>
+            <button class="key func" name="sin()">sin()</button>
+            <button class="key func" name="tan()">tan()</button>
+            <button class="key func" name="ln()">ln()</button>
+            <button class="key func" name="log()">log()</button>
+            <button class="key func" name="e">e</button>
+            <button class="key func" name="eⁿ">eⁿ</button>
+            <button class="key func" name="∞">∞</button>
+        </div>
     </div>
+    <div id="historyNumpad">
+        <div class="keypad">
+            <button class="key" name="1">1</button>
+            <button class="key" name="2">2</button>
+            <button class="key" name="3">3</button>
+            <button class="key" id="ClearDisplay">C</button>
+            <button class="key" name="4">4</button>
+            <button class="key" name="5">5</button>
+            <button class="key" name="6">6</button>
+            <button class="key" name="×">×</button>
+            <button class="key" name="7">7</button>
+            <button class="key" name="8">8</button>
+            <button class="key" name="9">9</button>
+            <button class="key" name="×">×</button>
+            <button class="key" name="0">0</button>
+            <button class="key" name="÷">÷</button>
+            <button class="key" name="+">+</button>
+            <button class="key" name="-">-</button>
+            <button class="key" name="(">(</button>
+            <button class="key" name=")">)</button>
+            <button class="key operation3" name=".">.</button>
+            <button class="key operation4" name="=">=</button>
+        </div>
+        <div id="history-box">
+            <ul class="historyList" id="HistoryList"></ul>
+            <button id="clearHistory">Clear History</button>
+        </div>
+    </div>
+</div>
 
-    <div id="powerPlot"></div>
-    <div id="squareRootPlot"></div>
-    <div id="cosinePlot"></div>
-    <div id="sinePlot"></div>
-    <div id="tangentPlot"></div>
-    <div id="naturalLogPlot"></div>
-    <div id="logarithmPlot"></div>
-    <div id="exponentPlot"></div>
+<div id="SolutionBox" class="hidden"></div>
+<div id="DisplayGraph" class="hidden"></div>
 
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <script type="module" src="js/maths.js"></script>
-    <script type="module" src="js/script.js"></script>
-    <script type="module" src="js/plotly-graphs.js"></script>
+<div id="powerPlot"></div>
+<div id="squareRootPlot"></div>
+<div id="cosinePlot"></div>
+<div id="sinePlot"></div>
+<div id="tangentPlot"></div>
+<div id="naturalLogPlot"></div>
+<div id="logarithmPlot"></div>
+<div id="exponentPlot"></div>
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script type="module" src="js/maths.js"></script>
+<script type="module" src="js/script.js"></script>
+<script type="module" src="js/plotly-graphs.js"></script>
 </body>
 </html>
