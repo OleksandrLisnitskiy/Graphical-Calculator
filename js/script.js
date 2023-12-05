@@ -1,5 +1,5 @@
 // Import necessary functions from calculations.js
-import { add, subtract, multiply, divide, power, squareRoot, sum, cosine, sine, tangent, naturalLog, logarithm, exponent } from './calculations.js';
+import {squareRoot} from './calculations.js';
 
 const superscriptMap = {
     '0': '⁰',
@@ -92,11 +92,9 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     function insertCharacterNextToCursor(char) {
-        let cursorPosition = inputField.selectionStart;
-        let inputValue = inputField.value;
-        let newValue = inputValue.slice(0, cursorPosition) + char + inputValue.slice(cursorPosition);
-        inputField.value = newValue;
-        inputField.setSelectionRange(cursorPosition + char.length, cursorPosition + char.length);
+        inputField.value = inputField.value + char;
+        inputField.focus();
+        inputField.setSelectionRange(inputField.length, inputField.length);
     }
 
     function toggleSuperscriptNextToCursor() {
