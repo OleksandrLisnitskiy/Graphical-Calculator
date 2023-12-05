@@ -1,6 +1,35 @@
-// Import necessary functions from calculations.js
-import { add, subtract, multiply, divide, power, squareRoot, sum, cosine, sine, tangent, naturalLog, logarithm, exponent } from './calculations.js';
+import { add, subtract, multiply, divide, power,
+     squareRoot, sum, cosine, sine, tangent, naturalLog, logarithm, exponent,
+     solveLinearEquation, solveQuadraticEquation, solveCubicEquation } from './calculations.js';
 
+function isLinearEquation(input) {
+        // Basic regex for linear equations: ax + b = 0
+    const linearPattern = /^[+-]?(\d+)?x\s*[+-]\s*\d+\s*=\s*0$/;
+    return linearPattern.test(input);
+    }
+    
+function isQuadraticEquation(input) {
+        // Basic regex for quadratic equations: ax^2 + bx + c = 0
+    const quadraticPattern = /^[+-]?(\d+)?x\^2\s*[+-]\s*(\d+)?x\s*[+-]\s*\d+\s*=\s*0$/;
+    return quadraticPattern.test(input);
+    }
+    
+function isCubicEquation(input) {
+        // Basic regex for cubic equations: ax^3 + bx^2 + cx + d = 0
+    const cubicPattern = /^[+-]?(\d+)?x\^3\s*[+-]\s*(\d+)?x\^2\s*[+-]\s*(\d+)?x\s*[+-]\s*\d+\s*=\s*0$/;
+    return cubicPattern.test(input);
+    }
+    
+function extractCoefficients(input, numCoefficients) {
+        // Extract coefficients from input. This is a basic implementation.
+        // It should be modified to match the specific format of the equations you're using.
+    let coefficients = input.match(/-?\d+/g) || [];
+    while (coefficients.length < numCoefficients) {
+            coefficients.push('0'); // Add zeros if not all coefficients are present
+        }
+    return coefficients.map(Number);
+    }
+    
 const superscriptMap = {
     '0': '⁰',
     '1': '¹',
@@ -130,39 +159,52 @@ function clearHistoryList() {
 }
 
 calcButton.addEventListener('click', function () {
-    let finalInput = inputField.value;
-    // Assuming user enters the power after ⁿ
-    finalInput = finalInput.replace("√", "squareRoot"); // Using squareRoot function for root calculations
-    const regex = /[⁰¹²³⁴⁵⁶⁷⁸⁹ˣʸ⁾⁽⁻⁼⁺]+/g;
+    let finalInput = inputField.value.trim();
 
-// Replace superscript with "**(" at the beginning and ")" at the end
-    finalInput = finalInput.replace(regex, '**($&)');
-    finalInput = finalInput.replace(regex, match => {
-        // Use the mapping to convert each matched upper index character
-        return match.split('').map(char => opositSuperscriptMap[char]).join('');
-    });
-    // Add more replacements as necessary based on the symbols used in your UI
+    if (isEquation(finalInput)) {
+        let result;
 
-    if (finalInput !== "") {
-        let result = calculateExpression(finalInput);
-        solutionBox.textContent = inputField.value + "=" + result;
+        if (isLinearEquation(finalInput)) {
+            let [a, b] = extractCoefficients(finalInput, 2);
+            result = solveLinearEquation(a, b);
+        } else if (isQuadraticEquation(finalInput)) {
+            let [a, b, c] = extractCoefficients(finalInput, 3);
+            result = solveQuadraticEquation(a, b, c).join(', ');
+        } else if (isCubicEquation(finalInput)) {
+            let [a, b, c, d] = extractCoefficients(finalInput, 4);
+            result = solveCubicEquation(a, b, c, d).join(', ');
+        } else {
+            result = 'Unsupported equation type or format';
+        }
+
+        solutionBox.textContent = finalInput + " => " + result;
         solutionBox.classList.remove('hidden');
         graphBox.classList.remove('hidden');
+    } else {
+        finalInput = finalInput.replace("√", "squareRoot");
+        if (finalInput !== "") {
+            let result = calculateExpression(finalInput);
+            solutionBox.textContent = inputField.value + "=" + result;
+            solutionBox.classList.remove('hidden');
+            graphBox.classList.remove('hidden');
 
-        let newListElement = document.createElement('li');
-        newListElement.classList.add("history");
-        let spanElem = document.createElement('span');
-        spanElem.classList.add('finalInput');
-        spanElem.textContent = inputField.value;
-        newListElement.appendChild(spanElem);
-        newListElement.addEventListener("click", function () {
-            inputField.value = newListElement.textContent;
-        });
+            let newListElement = document.createElement('li');
+            newListElement.classList.add("history");
+            let spanElem = document.createElement('span');
+            spanElem.classList.add('finalInput');
+            spanElem.textContent = inputField.value;
+            newListElement.appendChild(spanElem);
+            newListElement.addEventListener("click", function () {
+                inputField.value = newListElement.textContent;
+            });
 
-        historyBox.insertBefore(newListElement, historyBox.firstChild);
+            historyBox.insertBefore(newListElement, historyBox.firstChild);
 
-        inputField.value = '';
+            inputField.value = '';
+        }
     }
+
+    inputField.value = '';
 });
 
 clearDisplayButton.addEventListener("click", function () {
@@ -170,3 +212,34 @@ clearDisplayButton.addEventListener("click", function () {
     solutionBox.classList.add('hidden');
     graphBox.classList.add('hidden');
 });
+
+
+// New function to handle equation solving
+function solveEquation() {
+    let input = inputField.value.trim();
+
+    // Determine the type of equation and solve accordingly
+    let result;
+    if (isLinearEquation(input)) {
+        let [a, b] = extractCoefficients(input, 2);
+        result = solveLinearEquation(a, b);
+    } else if (isQuadraticEquation(input)) {
+        let [a, b, c] = extractCoefficients(input, 3);
+        result = solveQuadraticEquation(a, b, c).join(', ');
+    } else if (isCubicEquation(input)) {
+        let [a, b, c, d] = extractCoefficients(input, 4);
+        result = solveCubicEquation(a, b, c, d).join(', ');
+    } else {
+        result = 'Unsupported equation type or format';
+    }
+
+    // Display the result
+    solutionBox.textContent = input + " => " + result;
+    solutionBox.classList.remove('hidden');
+}
+
+function isEquation(input) {
+    // Implement logic to determine if the input is an equation
+    // Could be a simple check for the presence of an '=' sign
+    return input.includes('=');
+}
