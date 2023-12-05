@@ -145,7 +145,7 @@ calcButton.addEventListener('click', function () {
         let result = calculateExpression(finalInput);
         solutionBox.textContent = inputField.value + "=" + result;
         solutionBox.classList.remove('hidden');
-        graphBox.classList.remove('hidden');
+        // graphBox.classList.remove('hidden');
 
         let newListElement = document.createElement('li');
         newListElement.classList.add("history");
