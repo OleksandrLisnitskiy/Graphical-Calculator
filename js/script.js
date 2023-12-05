@@ -1,113 +1,6 @@
-// Socket.IO client-side connection
-const socket = io('http://localhost:3000');
+// Import necessary functions from calculations.js
+import { add, subtract, multiply, divide, power, squareRoot, sum, cosine, sine, tangent, naturalLog, logarithm, exponent } from './calculations.js';
 
-let inputField = document.getElementById('display');
-let calcButton = document.getElementById("Calculate");
-let clearDisplayButton = document.getElementById("ClearDisplay");
-let historyBox = document.getElementById("HistoryList");
-let solutionBox = document.getElementById("SolutionBox");
-let graphBox = document.getElementById("DisplayGraph");
-
-// Listen for results from the server
-socket.on('result', (result) => {
-    solutionBox.textContent = inputField.value + "=" + result;
-    solutionBox.classList.remove('hidden');
-    graphBox.classList.remove('hidden');
-    updateHistory(inputField.value, result);
-});
-
-// Listen for errors
-socket.on('error', (errorMessage) => {
-    console.error(errorMessage);
-    solutionBox.textContent = 'Error: ' + errorMessage;
-    solutionBox.classList.remove('hidden');
-});
-
-document.addEventListener('DOMContentLoaded', function () {
-    let funcButtons = document.querySelectorAll('button[name]');
-    inputField.focus();
-
-    inputField.addEventListener('input', function () {
-        var sanitizedValue = inputField.value.replace(/[^-0-9xy=+*/()tansicolgeΣ²³ⁿ√]/g, '');
-        inputField.value = sanitizedValue;
-    });
-
-    inputField.addEventListener('keydown', function (event) {
-        if (event.key === "Escape" || event.keyCode === 27) {
-            inputField.value = '';
-        } else if (event.shiftKey && event.key === "^") {
-            toggleSuperscriptNextToCursor();
-            event.preventDefault(); // Prevent the default behavior of the '^' key
-        }
-    });
-
-    funcButtons.forEach(function (button) {
-        button.addEventListener('click', function () {
-            let graphFunction = button.getAttribute("name");
-            insertCharacterNextToCursor(graphFunction);
-        });
-    });
-
-    calcButton.addEventListener('click', sendCalculationRequest);
-    clearDisplayButton.addEventListener("click", clearCalculator);
-});
-
-function sendCalculationRequest() {
-    let expression = inputField.value;
-    if (expression !== "") {
-        socket.emit('calculate', { expression: expression });
-    }
-}
-
-function clearCalculator() {
-    inputField.value = '';
-    solutionBox.classList.add('hidden');
-    graphBox.classList.add('hidden');
-}
-
-function insertCharacterNextToCursor(char) {
-    let cursorPosition = inputField.selectionStart;
-    let inputValue = inputField.value;
-    let newValue = inputValue.slice(0, cursorPosition) + char + inputValue.slice(cursorPosition);
-    inputField.value = newValue;
-    inputField.setSelectionRange(cursorPosition + char.length, cursorPosition);
-}
-
-function toggleSuperscriptNextToCursor() {
-    let selectionStart = inputField.selectionStart;
-    let selectionEnd = inputField.selectionEnd;
-    let inputValue = inputField.value;
-    let selectedText = inputValue.substring(selectionStart, selectionEnd);
-
-    if (selectedText.length > 0) {
-        let superscriptValue = superscriptText(selectedText);
-        let newValue = inputValue.substring(0, selectionStart) +
-            superscriptValue +
-            inputValue.substring(selectionEnd);
-
-        inputField.value = newValue;
-        inputField.setSelectionRange(selectionStart + superscriptValue.length, selectionStart + superscriptValue.length);
-    }
-}
-
-function superscriptText(text) {
-    return text.split('').map(char => superscriptMap[char] || char).join('');
-}
-
-function updateHistory(input, result) {
-    let newListElement = document.createElement('li');
-    newListElement.classList.add("history");
-    let spanElem = document.createElement('span');
-    spanElem.classList.add('finalInput');
-    spanElem.textContent = input + " = " + result;
-    newListElement.appendChild(spanElem);
-    newListElement.addEventListener("click", function () {
-        inputField.value = newListElement.textContent;
-    });
-
-    historyBox.insertBefore(newListElement, historyBox.firstChild);
-}
-    
 const superscriptMap = {
     '0': '⁰',
     '1': '¹',
@@ -147,7 +40,12 @@ const opositSuperscriptMap = {
     'ʸ': 'y',
 };
 
-
+let inputField = document.getElementById('display');
+let calcButton = document.getElementById("Calculate");
+let clearDisplayButton = document.getElementById("ClearDisplay");
+let historyBox = document.getElementById("HistoryList");
+let solutionBox = document.getElementById("SolutionBox");
+let graphBox = document.getElementById("DisplayGraph");
 
 function calculateExpression(expression) {
     // Replace textual representation with function calls and constant values
@@ -198,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let inputValue = inputField.value;
         let newValue = inputValue.slice(0, cursorPosition) + char + inputValue.slice(cursorPosition);
         inputField.value = newValue;
-        inputField.setSelectionRange(cursorPosition + char.length, cursorPosition );
+        inputField.setSelectionRange(cursorPosition + char.length, cursorPosition + char.length);
     }
 
     function toggleSuperscriptNextToCursor() {
@@ -232,52 +130,39 @@ function clearHistoryList() {
 }
 
 calcButton.addEventListener('click', function () {
-    let finalInput = inputField.value.trim();
+    let finalInput = inputField.value;
+    // Assuming user enters the power after ⁿ
+    finalInput = finalInput.replace("√", "squareRoot"); // Using squareRoot function for root calculations
+    const regex = /[⁰¹²³⁴⁵⁶⁷⁸⁹ˣʸ⁾⁽⁻⁼⁺]+/g;
 
-    if (isEquation(finalInput)) {
-        let result;
+// Replace superscript with "**(" at the beginning and ")" at the end
+    finalInput = finalInput.replace(regex, '**($&)');
+    finalInput = finalInput.replace(regex, match => {
+        // Use the mapping to convert each matched upper index character
+        return match.split('').map(char => opositSuperscriptMap[char]).join('');
+    });
+    // Add more replacements as necessary based on the symbols used in your UI
 
-        if (isLinearEquation(finalInput)) {
-            let [a, b] = extractCoefficients(finalInput, 2);
-            result = solveLinearEquation(a, b);
-        } else if (isQuadraticEquation(finalInput)) {
-            let [a, b, c] = extractCoefficients(finalInput, 3);
-            result = solveQuadraticEquation(a, b, c).join(', ');
-        } else if (isCubicEquation(finalInput)) {
-            let [a, b, c, d] = extractCoefficients(finalInput, 4);
-            result = solveCubicEquation(a, b, c, d).join(', ');
-        } else {
-            result = 'Unsupported equation type or format';
-        }
-
-        solutionBox.textContent = finalInput + " => " + result;
+    if (finalInput !== "") {
+        let result = calculateExpression(finalInput);
+        solutionBox.textContent = inputField.value + "=" + result;
         solutionBox.classList.remove('hidden');
         graphBox.classList.remove('hidden');
-    } else {
-        finalInput = finalInput.replace("√", "squareRoot");
-        if (finalInput !== "") {
-            let result = calculateExpression(finalInput);
-            solutionBox.textContent = inputField.value + "=" + result;
-            solutionBox.classList.remove('hidden');
-            graphBox.classList.remove('hidden');
 
-            let newListElement = document.createElement('li');
-            newListElement.classList.add("history");
-            let spanElem = document.createElement('span');
-            spanElem.classList.add('finalInput');
-            spanElem.textContent = inputField.value;
-            newListElement.appendChild(spanElem);
-            newListElement.addEventListener("click", function () {
-                inputField.value = newListElement.textContent;
-            });
+        let newListElement = document.createElement('li');
+        newListElement.classList.add("history");
+        let spanElem = document.createElement('span');
+        spanElem.classList.add('finalInput');
+        spanElem.textContent = inputField.value;
+        newListElement.appendChild(spanElem);
+        newListElement.addEventListener("click", function () {
+            inputField.value = newListElement.textContent;
+        });
 
-            historyBox.insertBefore(newListElement, historyBox.firstChild);
+        historyBox.insertBefore(newListElement, historyBox.firstChild);
 
-            inputField.value = '';
-        }
+        inputField.value = '';
     }
-
-    inputField.value = '';
 });
 
 clearDisplayButton.addEventListener("click", function () {
@@ -285,34 +170,3 @@ clearDisplayButton.addEventListener("click", function () {
     solutionBox.classList.add('hidden');
     graphBox.classList.add('hidden');
 });
-
-
-// New function to handle equation solving
-function solveEquation() {
-    let input = inputField.value.trim();
-
-    // Determine the type of equation and solve accordingly
-    let result;
-    if (isLinearEquation(input)) {
-        let [a, b] = extractCoefficients(input, 2);
-        result = solveLinearEquation(a, b);
-    } else if (isQuadraticEquation(input)) {
-        let [a, b, c] = extractCoefficients(input, 3);
-        result = solveQuadraticEquation(a, b, c).join(', ');
-    } else if (isCubicEquation(input)) {
-        let [a, b, c, d] = extractCoefficients(input, 4);
-        result = solveCubicEquation(a, b, c, d).join(', ');
-    } else {
-        result = 'Unsupported equation type or format';
-    }
-
-    // Display the result
-    solutionBox.textContent = input + " => " + result;
-    solutionBox.classList.remove('hidden');
-}
-
-function isEquation(input) {
-    // Implement logic to determine if the input is an equation
-    // Could be a simple check for the presence of an '=' sign
-    return input.includes('=');
-}
