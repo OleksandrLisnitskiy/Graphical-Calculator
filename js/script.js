@@ -55,7 +55,8 @@ function calculateExpression(expression) {
     expression = expression.replace(/ln\(/g, 'naturalLog(');
     expression = expression.replace(/log\(/g, 'logarithm(10,'); // Assuming base 10 for log
     expression = expression.replace(/\be\b/g, '2.71828'); // Replace 'e' with its constant value, ensuring it's a standalone 'e'
-
+    expression = expression.replace(/\bπ\b/g, '3.1415'); // Replace 'pi' with its constant value, ensuring it's a standalone 'pi'
+    alert(expression);
     // Evaluate the expression
     let result;
     try {
