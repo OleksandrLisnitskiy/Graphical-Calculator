@@ -1,5 +1,6 @@
 // Import necessary functions from calculations.js
-import {squareRoot} from './calculations.js';
+import { add, subtract, multiply, divide, power, squareRoot, sum, cosine, sine, tangent,
+    naturalLog, logarithm, exponent } from './calculations.js';
 
 const superscriptMap = {
     '0': '⁰',
@@ -53,10 +54,11 @@ function calculateExpression(expression) {
     expression = expression.replace(/cos\(/g, 'cosine(');
     expression = expression.replace(/tan\(/g, 'tangent(');
     expression = expression.replace(/ln\(/g, 'naturalLog(');
-    expression = expression.replace(/log\(/g, 'logarithm(10,'); // Assuming base 10 for log
-    expression = expression.replace(/\be\b/g, '2.71828'); // Replace 'e' with its constant value, ensuring it's a standalone 'e'
-    expression = expression.replace(/\bπ\b/g, '3.1415'); // Replace 'pi' with its constant value, ensuring it's a standalone 'pi'
-    alert(expression);
+    expression = expression.replace(/log\(/g, 'logarithm(10,');
+    expression = expression.replace(/\be\b/g, '2.71828');
+    expression = expression.replace(/π/g, '3.14159');
+    expression = expression.replace(/∞/g, 'Infinity');
+
     // Evaluate the expression
     let result;
     try {
@@ -98,13 +100,13 @@ document.addEventListener('DOMContentLoaded', function () {
         inputField.setSelectionRange(inputField.length, inputField.length);
     }
 
+
     function toggleSuperscriptNextToCursor() {
         let selectionStart = inputField.selectionStart;
         let selectionEnd = inputField.selectionEnd;
         let inputValue = inputField.value;
         let selectedText = inputValue.substring(selectionStart, selectionEnd);
 
-        // If there's a selection, replace the selected text with superscript representation
         if (selectedText.length > 0) {
             let superscriptValue = superscriptText(selectedText);
             let newValue = inputValue.substring(0, selectionStart) +
@@ -140,13 +142,12 @@ calcButton.addEventListener('click', function () {
         // Use the mapping to convert each matched upper index character
         return match.split('').map(char => opositSuperscriptMap[char]).join('');
     });
-    // Add more replacements as necessary based on the symbols used in your UI
 
     if (finalInput !== "") {
         let result = calculateExpression(finalInput);
         solutionBox.textContent = inputField.value + "=" + result;
         solutionBox.classList.remove('hidden');
-        // graphBox.classList.remove('hidden');
+        graphBox.classList.remove('hidden');
 
         let newListElement = document.createElement('li');
         newListElement.classList.add("history");

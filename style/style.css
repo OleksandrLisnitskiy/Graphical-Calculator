@@ -80,7 +80,7 @@ body {
 #display::-webkit-scrollbar-thumb {
     background-color: #888; /* Set the color of the thumb */
     border-radius: 6px; /* Set the border radius of the thumb */
-    border: 3px solid #fff; /* Optional: Add a border for visual clarity */
+    border: 3px solid #fff;
 }
 
 #display::-webkit-scrollbar-track {
@@ -244,3 +244,59 @@ body {
     display: block;
 }
 
+footer {
+    background-color: black;
+    color: #f2e9e4;
+    text-align: center;
+    padding: 20px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Spacing between Numpad and Footer */
+.numpad-container {
+    margin-bottom: 50px;
+}
+
+.footer-content p {
+    margin: 20px 0;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.social-icon {
+    display: inline-block;
+    margin: 0 10px;
+    font-size: 24px;
+    color: #9a8c98;
+    transition: color 0.3s;
+}
+
+.social-icon:hover {
+    color: #c9ada7;
+}
+
+video#introVideo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-width: 100vw;
+    min-height: 100vh;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    z-index: 100;
+}
+
+div#mainContent.hidden {
+    display: none;
+}
+
+div#mainContent.visible {
+    display: block;
+}
